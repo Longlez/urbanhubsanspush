@@ -88,3 +88,26 @@ class RabbitMQLogConsumer(LogConsumerPort):
     def is_connected(self) -> bool:
         """Vérifie si le consumer est connecté"""
         return self._is_connected
+
+
+class MockLogConsumer(LogConsumerPort):
+    """Mock pour le consumer RabbitMQ utilisé lors des tests"""
+
+    def __init__(self) -> None:
+        self._is_connected = False
+        self._callback: Optional[Callable[[str], None]] = None
+
+    def start(self, callback: Callable[[str], None]) -> None:
+        self._callback = callback
+        self._is_connected = True
+
+    def stop(self) -> None:
+        self._is_connected = False
+        self._callback = None
+
+    def is_connected(self) -> bool:
+        return self._is_connected
+
+    def publish_message(self, message: str) -> None:
+        if self._callback is not None:
+            self._callback(message)
