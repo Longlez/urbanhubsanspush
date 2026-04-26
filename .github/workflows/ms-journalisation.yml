@@ -1,0 +1,158 @@
+name: MS Journalisation - CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - "ms-journalisation/**"
+      - ".github/workflows/ms-journalisation.yml"
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "ms-journalisation/**"
+      - ".github/workflows/ms-journalisation.yml"
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    env:
+      PYTHON_VERSION: "3.12"
+    defaults:
+      run:
+        working-directory: ms-journalisation
+
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: ms-journalisation/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+  test:
+    runs-on: ubuntu-latest
+    needs: install
+    env:
+      PYTHON_VERSION: "3.12"
+      PYTHONPATH: ${{ github.workspace }}/ms-journalisation
+    defaults:
+      run:
+        working-directory: ms-journalisation
+
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: ms-journalisation/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run test suite
+        run: |
+          pytest tests/ -v --junitxml=pytest_report.xml --cov=src --cov-report=xml:coverage.xml --cov-report=term-missing
+
+  quality:
+    runs-on: ubuntu-latest
+    needs: test
+    env:
+      PYTHON_VERSION: "3.12"
+      PYTHONPATH: ${{ github.workspace }}/ms-journalisation
+    defaults:
+      run:
+        working-directory: ms-journalisation
+
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: ms-journalisation/requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt flake8
+
+      - name: Run coverage gate
+        run: |
+          pytest tests/ --cov=src --cov-report=term-missing --cov-report=xml:coverage.xml -q
+
+      - name: Lint flake8
+        run: |
+          flake8 src tests --config=.flake8 --output-file=flake8-report.txt || true
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ms-journalisation-coverage
+          path: ms-journalisation/coverage.xml
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ startsWith(secrets.SONAR_HOST_URL, 'http') && secrets.SONAR_HOST_URL || 'https://sonarcloud.io' }}
+        with:
+          projectBaseDir: ms-journalisation
+
+      - name: Snyk Security Scan
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=ms-journalisation/requirements.txt --severity-threshold=high --fail-on=all
+
+  build:
+    runs-on: ubuntu-latest
+    needs: quality
+
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build Docker image
+        run: docker build -t ms-journalisation:ci ./ms-journalisation
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Checkout monorepo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Deploy placeholder
+        run: |
+          echo "Deployment step ready for ms-journalisation."
+          echo "Configure a real deployment command here (SSH, registry push, Kubernetes, etc.)."

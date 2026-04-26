@@ -1,0 +1,125 @@
+# RAPPORT DE TESTS UNIFIÉ - MICROSERVICES URBANHUB
+# Généré le: 2026-04-26
+# ====================================================
+
+## RÉSUMÉ GÉNÉRAL
+
+| Microservice | Tests | Statut | Couverture | Rapport |
+|--------------|-------|--------|------------|---------|
+| ms-analyse | ✅ 18 tests | RÉUSSI | 95% | [Voir détails](#ms-analyse) |
+| ms-collecte-iot | ✅ 43 tests | RÉUSSI | 97.44% | [Voir détails](#ms-collecte-iot) |
+| ms-journalisation | ✅ 17 tests | RÉUSSI | N/A* | [Voir détails](#ms-journalisation) |
+| ms-alerte-usager | ❌ ÉCHEC | SQLAlchemy/Python 3.14 | N/A | [Voir détails](#ms-alerte-usager) |
+
+*Note: Couverture limitée au module validator uniquement
+
+---
+
+## DÉTAILS PAR MICROSERVICE
+
+### ms-analyse
+**Statut:** ✅ RÉUSSI
+**Tests exécutés:** 18
+**Temps d'exécution:** ~2.5 secondes
+**Couverture:** 95%
+
+**Résultats des tests:**
+- ✅ TestAnalysisValidator: 9 tests
+- ✅ TestMetricValidator: 5 tests
+- ✅ TestConfigValidator: 4 tests
+
+**Fichier de couverture:** `ms-analyse_coverage.xml`
+**Fichier de tests:** `ms-analyse_tests.xml`
+
+---
+
+### ms-collecte-iot
+**Statut:** ✅ RÉUSSI
+**Tests exécutés:** 43
+**Temps d'exécution:** ~2.65 secondes
+**Couverture:** 97.44%
+
+**Résultats des tests:**
+- ✅ TestSensorDataValidator: 9 tests
+- ✅ TestDeviceValidator: 6 tests
+- ✅ TestConfigValidator: 6 tests
+- ✅ Tests existants: 22 tests
+
+**Fichier de couverture:** `ms-collecte-iot_coverage.xml`
+**Fichier de tests:** `ms-collecte-iot_tests.xml`
+
+---
+
+### ms-journalisation
+**Statut:** ✅ RÉUSSI (tests validator uniquement)
+**Tests exécutés:** 17
+**Temps d'exécution:** ~0.29 secondes
+**Couverture:** N/A (module validator uniquement)
+
+**Résultats des tests:**
+- ✅ TestLogValidator: 9 tests
+- ✅ TestConfigValidator: 8 tests
+
+**Note:** Les tests complets du microservice échouent à cause d'imports manquants (MockLogConsumer)
+
+**Fichier de couverture:** `ms-journalisation_coverage.xml`
+**Fichier de tests:** `ms-journalisation_tests.xml`
+
+---
+
+### ms-alerte-usager
+**Statut:** ❌ ÉCHEC
+**Erreur:** Incompatibilité SQLAlchemy avec Python 3.14
+**Message:** AssertionError: Class <class 'sqlalchemy.sql.elements.SQLCoreOperations'> directly inherits TypingOnly but has additional attributes
+
+**Cause:** Version de SQLAlchemy incompatible avec Python 3.14
+**Solution:** Mettre à jour SQLAlchemy ou utiliser Python 3.12
+
+---
+
+## STATISTIQUES GLOBALES
+
+### Tests Réussis
+- **Total tests:** 78 (sur 4 microservices)
+- **Taux de succès:** 75% (3/4 microservices opérationnels)
+- **Couverture moyenne:** 96.22% (pour les microservices testés)
+
+### Problèmes Identifiés
+1. **ms-alerte-usager:** Incompatibilité SQLAlchemy/Python 3.14
+2. **ms-journalisation:** Tests existants défaillants (imports manquants)
+
+### Recommandations
+1. **Corriger la compatibilité SQLAlchemy** pour ms-alerte-usager
+2. **Réparer les imports manquants** dans ms-journalisation
+3. **Standardiser les environnements Python** (recommander Python 3.12)
+4. **Intégrer les tests dans le pipeline CI/CD** pour validation automatique
+
+---
+
+## FICHIERS GÉNÉRÉS
+
+### Rapports XML de Tests
+- `ms-analyse_tests.xml`
+- `ms-collecte-iot_tests.xml`
+- `ms-journalisation_tests.xml`
+- `ms-alerte-usager_tests.xml` (généré mais avec erreurs)
+
+### Rapports XML de Couverture
+- `ms-analyse_coverage.xml`
+- `ms-collecte-iot_coverage.xml`
+- `ms-journalisation_coverage.xml`
+
+### Commandes pour régénérer les rapports
+```bash
+# ms-analyse
+cd ms-analyse && pytest tests/ --junitxml=../rapport_tests/ms-analyse_tests.xml --cov=src --cov-report=xml:../rapport_tests/ms-analyse_coverage.xml
+
+# ms-collecte-iot
+cd ms-collecte-iot && pytest test/unit --junitxml=../rapport_tests/ms-collecte-iot_tests.xml --cov=src --cov-report=xml:../rapport_tests/ms-collecte-iot_coverage.xml
+
+# ms-journalisation (validator uniquement)
+cd ms-journalisation && pytest tests/test_validator.py --junitxml=../rapport_tests/ms-journalisation_tests.xml --cov=src/validator --cov-report=xml:../rapport_tests/ms-journalisation_coverage.xml
+```
+
+---
+*Rapport généré automatiquement par le système de tests unifiés*

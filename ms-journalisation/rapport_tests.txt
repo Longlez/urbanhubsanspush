@@ -1,0 +1,51 @@
+============================= test session starts =============================
+platform win32 -- Python 3.14.3, pytest-7.4.0, pluggy-1.6.0 -- C:\Users\raval\AppData\Local\Programs\Python\Python314\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\raval\Documents\Ms journalisation\ms-journalisation
+configfile: pytest.ini
+testpaths: tests
+plugins: anyio-4.12.1, cov-4.1.0
+collecting ... collected 48 items / 1 error
+
+=================================== ERRORS ====================================
+____________ ERROR collecting tests/unit/adapters/test_adapters.py ____________
+ImportError while importing test module 'C:\Users\raval\Documents\Ms journalisation\ms-journalisation\tests\unit\adapters\test_adapters.py'.
+Hint: make sure your test modules/packages have valid Python names.
+Traceback:
+..\..\..\AppData\Local\Programs\Python\Python314\Lib\importlib\__init__.py:88: in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+tests\unit\adapters\test_adapters.py:7: in <module>
+    from src.adapters.rabbitmq.log_consumer_adapter import MockLogConsumer
+E   ImportError: cannot import name 'MockLogConsumer' from 'src.adapters.rabbitmq.log_consumer_adapter' (C:\Users\raval\Documents\Ms journalisation\ms-journalisation\src\adapters\rabbitmq\log_consumer_adapter.py)
+- generated xml file: C:\Users\raval\Documents\Ms journalisation\ms-journalisation\rapport_tests.xml -
+
+---------- coverage: platform win32, python 3.14.3-final-0 -----------
+Name                                              Stmts   Miss  Cover   Missing
+-------------------------------------------------------------------------------
+src\__init__.py                                       0      0   100%
+src\adapters\__init__.py                              0      0   100%
+src\adapters\api\__init__.py                          0      0   100%
+src\adapters\api\log_api_adapter.py                  33     33     0%   5-118
+src\adapters\database\__init__.py                     0      0   100%
+src\adapters\database\log_repository_adapter.py      97     74    24%   16, 20-23, 27, 31, 35, 39, 43-46, 59-60, 64-82, 86-111, 115-128, 132-141, 145-154, 158-167, 171-181, 186-191
+src\adapters\database\log_validator_adapter.py       26     21    19%   14, 26-54
+src\adapters\rabbitmq\__init__.py                     0      0   100%
+src\adapters\rabbitmq\log_consumer_adapter.py        44     36    18%   27-32, 41-78, 82-86, 90
+src\application\__init__.py                           0      0   100%
+src\application\process_log_use_case.py              33     21    36%   26-27, 46-64, 77-83, 95, 107, 119, 128
+src\domain\__init__.py                                0      0   100%
+src\domain\log.py                                    28     13    54%   44-50, 53, 60, 73-77
+src\main.py                                          27     19    30%   16-42, 46
+src\ports\__init__.py                                 0      0   100%
+src\ports\log_consumer_port.py                       12      3    75%   20, 25, 35
+src\ports\log_repository_port.py                     22      6    73%   24, 37, 50, 63, 73, 86
+src\ports\log_validator_port.py                       6      1    83%   23
+-------------------------------------------------------------------------------
+TOTAL                                               328    227    31%
+Coverage HTML written to dir coverage_html
+Coverage XML written to file coverage.xml
+
+=========================== short test summary info ===========================
+ERROR tests/unit/adapters/test_adapters.py
+!!!!!!!!!!!!!!!!!!! Interrupted: 1 error during collection !!!!!!!!!!!!!!!!!!!!
+============================== 1 error in 2.12s ===============================

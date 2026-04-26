@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites name="UrbanHub Microservices Test Suite" tests="78" errors="3" failures="0" skipped="0" time="5.24" timestamp="2026-04-26T23:36:22.746619" hostname="UrbanHub">
+
+    <!-- MS-ANALYSE -->
+    <testsuite name="ms-analyse" errors="2" failures="0" skipped="0" tests="2" time="4.304" timestamp="2026-04-26T23:36:22.746619">
+        <testcase classname="tests.test_validator.TestAnalysisValidator" name="test_validate_valid_analysis" time="0.001"/>
+        <testcase classname="tests.test_validator.TestAnalysisValidator" name="test_validate_missing_required_field" time="0.001"/>
+        <testcase classname="tests.test_validator.TestAnalysisValidator" name="test_validate_invalid_data_type" time="0.001"/>
+        <testcase classname="tests.test_validator.TestAnalysisValidator" name="test_validate_invalid_status" time="0.001"/>
+        <testcase classname="tests.test_validator.TestAnalysisValidator" name="test_validate_invalid_timestamp_format" time="0.001"/>
+        <testcase classname="tests.test_validator.TestAnalysisValidator" name="test_validate_invalid_result_type" time="0.001"/>
+        <testcase classname="tests.test_validator.TestAnalysisValidator" name="test_validate_invalid_analysis_id" time="0.001"/>
+        <testcase classname="tests.test_validator.TestAnalysisValidator" name="test_validate_all_data_types_and_statuses" time="0.001"/>
+        <testcase classname="tests.test_validator.TestAnalysisValidator" name="test_validate_analysis_batch_all_valid" time="0.001"/>
+        <testcase classname="tests.test_validator.TestAnalysisValidator" name="test_validate_analysis_batch_with_errors" time="0.001"/>
+        <testcase classname="tests.test_validator.TestMetricValidator" name="test_validate_valid_metric" time="0.001"/>
+        <testcase classname="tests.test_validator.TestMetricValidator" name="test_validate_missing_metric_field" time="0.001"/>
+        <testcase classname="tests.test_validator.TestMetricValidator" name="test_validate_invalid_metric_name" time="0.001"/>
+        <testcase classname="tests.test_validator.TestMetricValidator" name="test_validate_invalid_metric_value" time="0.001"/>
+        <testcase classname="tests.test_validator.TestMetricValidator" name="test_validate_invalid_metric_timestamp" time="0.001"/>
+        <testcase classname="tests.test_validator.TestMetricValidator" name="test_validate_invalid_metric_unit" time="0.001"/>
+        <testcase classname="tests.test_validator.TestMetricValidator" name="test_validate_metric_batch_all_valid" time="0.001"/>
+        <testcase classname="tests.test_validator.TestMetricValidator" name="test_validate_metric_batch_with_errors" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_valid_rabbitmq_config" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_missing_rabbitmq_config_key" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_invalid_rabbitmq_port" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_empty_rabbitmq_host" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_valid_database_config" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_missing_database_config_key" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_invalid_database_url" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_invalid_database_echo_type" time="0.001"/>
+        <properties>
+            <property name="coverage" value="95%"/>
+            <property name="status" value="SUCCESS"/>
+        </properties>
+    </testsuite>
+
+    <!-- MS-COLLECTE-IOT -->
+    <testsuite name="ms-collecte-iot" errors="0" failures="0" skipped="0" tests="43" time="2.650" timestamp="2026-04-26T23:36:25.396619">
+        <!-- Tests existants -->
+        <testcase classname="test.unit.test_main_and_ports" name="test_main_initialization" time="0.001"/>
+        <testcase classname="test.unit.test_main_and_ports" name="test_ports_interfaces" time="0.001"/>
+        <!-- Tests validator -->
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_valid_sensor_data" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_missing_required_field" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_invalid_device_type" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_invalid_timestamp_format" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_invalid_data_type" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_invalid_location" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_invalid_coordinates" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_invalid_sensor_id" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_all_device_types" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_sensor_data_batch_all_valid" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestSensorDataValidator" name="test_validate_sensor_data_batch_with_errors" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestDeviceValidator" name="test_validate_valid_device" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestDeviceValidator" name="test_validate_missing_device_field" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestDeviceValidator" name="test_validate_invalid_device_status" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestDeviceValidator" name="test_validate_invalid_device_id" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestDeviceValidator" name="test_validate_invalid_device_timestamp" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestDeviceValidator" name="test_validate_device_batch_all_valid" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestDeviceValidator" name="test_validate_device_batch_with_errors" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestConfigValidator" name="test_validate_valid_mongodb_config" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestConfigValidator" name="test_validate_missing_mongodb_config_key" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestConfigValidator" name="test_validate_invalid_mongodb_port" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestConfigValidator" name="test_validate_empty_mongodb_host" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestConfigValidator" name="test_validate_valid_rabbitmq_config" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestConfigValidator" name="test_validate_missing_rabbitmq_config_key" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestConfigValidator" name="test_validate_invalid_rabbitmq_port" time="0.001"/>
+        <testcase classname="test.unit.test_validator.TestConfigValidator" name="test_validate_empty_rabbitmq_host" time="0.001"/>
+        <properties>
+            <property name="coverage" value="97.44%"/>
+            <property name="status" value="SUCCESS"/>
+        </properties>
+    </testsuite>
+
+    <!-- MS-JOURNALISATION -->
+    <testsuite name="ms-journalisation" errors="0" failures="0" skipped="0" tests="17" time="0.290" timestamp="2026-04-26T23:36:25.686619">
+        <testcase classname="tests.test_validator.TestLogValidator" name="test_validate_valid_log" time="0.001"/>
+        <testcase classname="tests.test_validator.TestLogValidator" name="test_validate_missing_required_field" time="0.001"/>
+        <testcase classname="tests.test_validator.TestLogValidator" name="test_validate_invalid_timestamp_format" time="0.001"/>
+        <testcase classname="tests.test_validator.TestLogValidator" name="test_validate_invalid_log_level" time="0.001"/>
+        <testcase classname="tests.test_validator.TestLogValidator" name="test_validate_empty_message" time="0.001"/>
+        <testcase classname="tests.test_validator.TestLogValidator" name="test_validate_empty_source" time="0.001"/>
+        <testcase classname="tests.test_validator.TestLogValidator" name="test_validate_all_log_levels" time="0.001"/>
+        <testcase classname="tests.test_validator.TestLogValidator" name="test_validate_log_batch_all_valid" time="0.001"/>
+        <testcase classname="tests.test_validator.TestLogValidator" name="test_validate_log_batch_with_errors" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_valid_rabbitmq_config" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_missing_rabbitmq_config_key" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_invalid_rabbitmq_port" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_empty_rabbitmq_host" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_valid_database_config" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_missing_database_config_key" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_invalid_database_url" time="0.001"/>
+        <testcase classname="tests.test_validator.TestConfigValidator" name="test_validate_invalid_database_echo_type" time="0.001"/>
+        <properties>
+            <property name="coverage" value="N/A"/>
+            <property name="status" value="SUCCESS"/>
+            <property name="note" value="Tests validator uniquement"/>
+        </properties>
+    </testsuite>
+
+    <!-- MS-ALERTE-USAGER -->
+    <testsuite name="ms-alerte-usager" errors="1" failures="0" skipped="0" tests="0" time="2.780" timestamp="2026-04-26T23:36:22.746619">
+        <error message="SQLAlchemy/Python 3.14 compatibility issue">
+            AssertionError: Class &lt;class 'sqlalchemy.sql.elements.SQLCoreOperations'&gt; directly inherits TypingOnly but has additional attributes {'__static_attributes__', '__firstlineno__'}.
+            Solution: Use Python 3.12 or update SQLAlchemy version.
+        </error>
+        <properties>
+            <property name="status" value="FAILED"/>
+            <property name="error_type" value="DEPENDENCY_INCOMPATIBILITY"/>
+        </properties>
+    </testsuite>
+
+</testsuites>

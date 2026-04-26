@@ -1,0 +1,41 @@
+# Analyse Snyk - Après corrections
+# Date: 2026-04-26
+
+## Statut: Snyk non installé
+
+Snyk CLI n'est pas installé sur ce système.
+
+### Pour installer Snyk:
+```bash
+# Via npm (recommandé)
+npm install -g snyk
+
+# Via pip
+pip install snyk
+
+# Via Chocolatey (Windows)
+choco install snyk
+
+# Via Scoop (Windows)
+scoop bucket add snyk https://github.com/snyk/scoop-snyk
+scoop install snyk
+```
+
+### Pour exécuter l'analyse de sécurité:
+```bash
+# Authentification
+snyk auth
+
+# Analyse des vulnérabilités
+snyk test
+
+# Analyse des dépendances
+snyk test --file=requirements.txt
+
+# Génération de rapport
+snyk test --json > snyk_report.json
+```
+
+### Intégration CI/CD:
+Snyk est déjà configuré dans le pipeline GitHub Actions (.github/workflows/ms6.yml)
+avec les secrets nécessaires pour l'authentification et l'analyse automatique.
