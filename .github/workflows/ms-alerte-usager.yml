@@ -3,10 +3,14 @@ name: MS Alerte Usager - CI/CD Pipeline
 on:
   push:
     branches: [ main, develop ]
-    paths: [ 'ms-alerte-usager/**' ]
+    paths: 
+      - 'ms-alerte-usager/**'
+      - '.github/workflows/ms-alerte-usager.yml'
   pull_request:
     branches: [ main ]
-    paths: [ 'ms-alerte-usager/**' ]
+    paths: 
+      - 'ms-alerte-usager/**'
+      - '.github/workflows/ms-alerte-usager.yml'
 
 jobs:
   quality-gate:

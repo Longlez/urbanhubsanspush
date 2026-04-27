@@ -83,6 +83,20 @@ python src/main.py
 $env:DATABASE_URL="postgresql://user:password@localhost:5432/alerts"
 ```
 
+### 2.5 ms6-validateur-capteur
+
+Service de validation des mesures de capteurs.
+
+```bash
+cd c:\Users\raval\Documents\UrbanHubFork\ms6-validateur-capteur
+uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
+```
+
+#### Endpoint principal
+```bash
+POST http://localhost:8000/validate
+```
+
 ## 3. Commandes de test
 
 ### 3.1 ms-analyse
@@ -91,6 +105,8 @@ $env:DATABASE_URL="postgresql://user:password@localhost:5432/alerts"
 cd c:\Users\raval\Documents\UrbanHubFork\ms-analyse
 pytest tests/ --junitxml=..\rapport_tests\ms-analyse_tests.xml --cov=src --cov-report=xml:..\rapport_tests\ms-analyse_coverage.xml
 ```
+
+> Astuce : exécutez ces commandes avec l’environnement virtuel du projet activé (`.venv\Scripts\Activate.ps1`) ou utilisez `..\venv\Scripts\python.exe -m pytest ...` pour éviter les conflits de dépendances système.
 
 ### 3.2 ms-collecte-iot
 
@@ -113,6 +129,19 @@ cd c:\Users\raval\Documents\UrbanHubFork\ms-alerte-usager
 pytest test/unit --junitxml=..\rapport_tests\ms-alerte-usager_tests.xml --cov=src --cov-report=xml:..\rapport_tests\ms-alerte-usager_coverage.xml
 ```
 
+### 3.5 ms6-validateur-capteur
+
+```bash
+cd c:\Users\raval\Documents\UrbanHubFork\ms6-validateur-capteur
+pytest tests/test_validator.py --junitxml=..\rapport_tests\ms6-validateur-capteur_tests.xml --cov=src --cov-report=xml:..\rapport_tests\ms6-validateur-capteur_coverage.xml
+```
+
+#### Analyse de style (flake8)
+```bash
+cd c:\Users\raval\Documents\UrbanHubFork\ms6-validateur-capteur
+flake8 src tests --config=.flake8
+```
+
 > Si `pytest` échoue à cause de dépendances manquantes, installez les packages requis dans `.venv`.
 
 ## 4. Génération de rapports de couverture
@@ -122,6 +151,7 @@ pytest test/unit --junitxml=..\rapport_tests\ms-alerte-usager_tests.xml --cov=sr
 - `rapport_tests/ms-collecte-iot_coverage.xml`
 - `rapport_tests/ms-journalisation_coverage.xml`
 - `rapport_tests/ms-alerte-usager_coverage.xml`
+- `rapport_tests/ms6-validateur-capteur_coverage.xml`
 
 ### Rapport de tests JUnit
 - `rapport_tests/ms-analyse_tests.xml`
