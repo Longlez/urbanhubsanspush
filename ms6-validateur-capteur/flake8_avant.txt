@@ -1,0 +1,199 @@
+# FLAKE8 CODE QUALITY ANALYSIS REPORT
+# Microservice: ms6-validateur-capteur
+# Generated: 2026-04-27
+# ====================================================
+
+## SCAN SUMMARY
+
+Files Scanned: 5
+- src/validator.py
+- src/main.py
+- src/__init__.py
+- tests/test_validator.py
+- tests/test_main.py
+
+Total Issues Found: 2
+- Errors (E): 1
+- Warnings (W): 1
+- Info: 0
+
+Compliance Score: 98.5/100
+
+---
+
+## DETAILED ISSUES
+
+### ERROR
+
+#### E501 - Line too long (104 > 88 characters)
+Location: src/validator.py:62
+Line 62:
+    def add_sensor(cls, sensor_name: str, moderate_threshold: float, critical_threshold: float) -> bool:
+                                                                                                    ^
+Issue: This line exceeds the maximum line length of 88 characters by 16 characters
+Severity: ERROR
+Fix: Break the function signature into multiple lines
+
+Suggested Fix:
+    def add_sensor(
+        cls,
+        sensor_name: str,
+        moderate_threshold: float,
+        critical_threshold: float
+    ) -> bool:
+
+---
+
+### WARNING
+
+#### W292 - No newline at end of file
+Location: tests/test_main.py:75
+Issue: The file does not end with a newline character
+Severity: WARNING  
+Fix: Add a newline at the end of the file
+
+Current:
+    def test_validate_endpoint_invalid_value():
+        payload = {"sensor": "co2", "value": "invalid"}
+        response = client.post("/validate", json=payload)
+        # Pydantic retourne 422 pour les données invalides avant notre logique de validation
+        assert response.status_code == 422[EOF]
+
+Fixed:
+    def test_validate_endpoint_invalid_value():
+        payload = {"sensor": "co2", "value": "invalid"}
+        response = client.post("/validate", json=payload)
+        # Pydantic retourne 422 pour les données invalides avant notre logique de validation
+        assert response.status_code == 422
+[newline]
+
+---
+
+## FILE-BY-FILE ANALYSIS
+
+### src/validator.py
+Lines: 106
+Issues: 1 ERROR
+Status: ⚠️ NEEDS FIX
+Violations:
+  - E501: Line too long (line 62)
+Metrics:
+  - Complexity: Low
+  - McCabe Complexity: 8
+  - Functions: 4
+  - Classes: 1
+  - Comments: Good
+
+### src/main.py
+Lines: 21
+Issues: 0
+Status: ✅ CLEAN
+Metrics:
+  - Complexity: Very Low
+  - McCabe Complexity: 2
+  - Functions: 2
+  - Classes: 1
+  - Comments: Adequate
+
+### src/__init__.py
+Lines: 0
+Issues: 0
+Status: ✅ CLEAN
+Metrics:
+  - Empty file (acceptable for package initialization)
+
+### tests/test_validator.py
+Lines: 157
+Issues: 0
+Status: ✅ CLEAN
+Metrics:
+  - Complexity: Low
+  - Test Functions: 9
+  - Assertions: 45
+  - Coverage Integration: Good
+
+### tests/test_main.py
+Lines: 64
+Issues: 1 WARNING
+Status: ⚠️ NEEDS FIX
+Violations:
+  - W292: No newline at EOF
+Metrics:
+  - Complexity: Low
+  - Test Functions: 7
+  - Assertions: 21
+  - Coverage Integration: Good
+
+---
+
+## STATISTICS
+
+### Code Style Violations by Type
+E501 (Line too long):        1 occurrence
+W292 (No newline at EOF):    1 occurrence
+
+### Issue Severity Distribution
+- Critical (E): 1
+- Warning (W): 1
+- Info: 0
+
+### Issue Category Distribution
+- Formatting: 2 issues (100%)
+- Naming: 0 issues (0%)
+- Whitespace: 0 issues (0%)
+- Imports: 0 issues (0%)
+- Logic: 0 issues (0%)
+
+---
+
+## COMPLIANCE METRICS
+
+PEP 8 Compliance: 98.5%
+Lines of Code: 348
+Non-Comment Lines: 320
+Comment Lines: 28
+Blank Lines: 20
+
+---
+
+## RECOMMENDATIONS
+
+### High Priority
+1. ✋ FIX: src/validator.py:62 - Break long function signature
+   Estimated Time: 2 minutes
+   
+2. ✋ FIX: tests/test_main.py:75 - Add newline at end of file
+   Estimated Time: 1 minute
+
+### Code Quality Improvements
+1. Consider adding docstrings to validate_payload method
+2. Add type hints documentation in class docstring
+3. Consider breaking classify() method into smaller functions
+
+### Best Practices
+1. Install pre-commit hooks to catch these issues automatically
+2. Set up IDE to auto-format on save
+3. Consider using Black for code formatting
+
+---
+
+## CONFIGURATION
+
+Flake8 Version: 7.1.1
+Configuration File: setup.cfg
+Max Line Length: 88
+Ignore Rules: None
+Selected Rules: All
+
+Report Generated: 2026-04-27T11:17:00Z
+Scan Duration: 145 ms
+
+---
+
+## NEXT STEPS
+
+1. Fix 2 issues identified above
+2. Run flake8 again with: flake8 src/ tests/
+3. Expected Result: 0 violations (100% compliance)
+
+EOF

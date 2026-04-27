@@ -59,6 +59,22 @@ class SensorValidator:
         }
 
     @classmethod
+    def add_sensor(cls, sensor_name: str, moderate_threshold: float, critical_threshold: float) -> bool:
+        """Ajoute un nouveau capteur avec ses seuils de validation."""
+        normalized_sensor = sensor_name.strip().lower()
+        if normalized_sensor in cls.THRESHOLDS:
+            return False  # Capteur déjà existant
+
+        if moderate_threshold >= critical_threshold:
+            return False  # Seuils invalides
+
+        cls.THRESHOLDS[normalized_sensor] = {
+            "moderate": moderate_threshold,
+            "critical": critical_threshold,
+        }
+        return True
+
+    @classmethod
     def validate_payload(cls, payload: Dict[str, Any]) -> Dict[str, Any]:
         sensor = payload.get("sensor")
         value = payload.get("value")
