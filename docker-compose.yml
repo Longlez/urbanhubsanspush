@@ -134,3 +134,17 @@ services:
       RABBITMQ_HOST: rabbitmq
     command: ["python", "src/main.py"]
     restart: unless-stopped
+
+  ms6-validateur:
+    build:
+      context: ./ms6-validateur-capteur
+    container_name: ms6-validateur
+    ports:
+      - "8006:8000"
+    depends_on:
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      RABBITMQ_HOST: rabbitmq
+    command: ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    restart: unless-stopped
