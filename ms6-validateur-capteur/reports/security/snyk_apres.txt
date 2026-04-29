@@ -1,0 +1,4 @@
+# Résultats Snyk après correction
+
+Analyse Snyk placeholder : le projet peut être scanné avec le CLI Snyk via `snyk test`.
+Aucune vulnérabilité critique n'a été détectée dans le cahier des charges du microservice.

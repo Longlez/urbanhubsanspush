@@ -97,6 +97,11 @@ uvicorn src.main:app --reload --host 0.0.0.0 --port 8000
 POST http://localhost:8000/validate
 ```
 
+#### Installation des dépendances de développement
+```bash
+pip install -r requirements-dev.txt
+```
+
 ## 3. Commandes de test
 
 ### 3.1 ms-analyse

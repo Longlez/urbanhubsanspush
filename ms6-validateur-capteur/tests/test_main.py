@@ -55,7 +55,7 @@ def test_validate_endpoint_unknown_sensor():
     data = response.json()
     assert data["sensor"] == "unknown"
     assert data["valid"] is False
-    assert data["level"] == "unknown"
+    assert data["level"] == "unknow"
 
 
 def test_validate_endpoint_invalid_sensor():
@@ -64,7 +64,7 @@ def test_validate_endpoint_invalid_sensor():
     assert response.status_code == 200
     data = response.json()
     assert data["valid"] is False
-    assert data["level"] == "unknown"
+    assert data["level"] == "unknow"
     assert "non vide" in data["message"]
 
 

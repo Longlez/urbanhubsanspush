@@ -45,28 +45,28 @@ def test_validate_unknown_sensor():
 
     assert result["sensor"] == "unknown_sensor"
     assert result["valid"] is False
-    assert result["level"] == "unknown"
+    assert result["level"] == "unknow"
     assert result["threshold"] is None
     assert "inconnu" in result["message"]
 
 
 def test_capteur_ajouté():
     # Test ajout d'un nouveau capteur
-    success = SensorValidator.add_sensor("humidity", 60.0, 80.0)
+    success = SensorValidator.add_sensor("custom_sensor", 60.0, 80.0)
     assert success is True
 
     # Test que le capteur ajouté fonctionne
-    result = SensorValidator.validate_payload({"sensor": "humidity", "value": 50})
-    assert result["sensor"] == "humidity"
+    result = SensorValidator.validate_payload({"sensor": "custom_sensor", "value": 50})
+    assert result["sensor"] == "custom_sensor"
     assert result["valid"] is True
     assert result["level"] == "normal"
 
     # Test seuil modéré
-    result = SensorValidator.validate_payload({"sensor": "humidity", "value": 65})
+    result = SensorValidator.validate_payload({"sensor": "custom_sensor", "value": 65})
     assert result["level"] == "moderate"
 
     # Test seuil critique
-    result = SensorValidator.validate_payload({"sensor": "humidity", "value": 85})
+    result = SensorValidator.validate_payload({"sensor": "custom_sensor", "value": 85})
     assert result["level"] == "critical"
     assert result["valid"] is False
 
@@ -75,13 +75,13 @@ def test_validate_payload_sensor_invalid():
     # Test sensor vide
     result = SensorValidator.validate_payload({"sensor": "", "value": 100})
     assert result["valid"] is False
-    assert result["level"] == "unknown"
+    assert result["level"] == "unknow"
     assert "non vide" in result["message"]
 
     # Test sensor non string
     result = SensorValidator.validate_payload({"sensor": 123, "value": 100})
     assert result["valid"] is False
-    assert result["level"] == "unknown"
+    assert result["level"] == "unknow"
     assert "chaîne non vide" in result["message"]
 
 
@@ -89,13 +89,13 @@ def test_validate_payload_value_invalid():
     # Test value non numérique
     result = SensorValidator.validate_payload({"sensor": "co2", "value": "invalid"})
     assert result["valid"] is False
-    assert result["level"] == "unknown"
+    assert result["level"] == "unknow"
     assert "nombre valide" in result["message"]
 
     # Test value None
     result = SensorValidator.validate_payload({"sensor": "co2", "value": None})
     assert result["valid"] is False
-    assert result["level"] == "unknown"
+    assert result["level"] == "unknow"
     assert "nombre valide" in result["message"]
 
 

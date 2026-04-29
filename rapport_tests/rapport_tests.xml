@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<testsuites name="UrbanHub Microservices Test Suite" tests="78" errors="3" failures="0" skipped="0" time="5.24" timestamp="2026-04-26T23:36:22.746619" hostname="UrbanHub">
+<testsuites name="UrbanHub Microservices Test Suite" tests="88" errors="3" failures="0" skipped="0" time="6.0" timestamp="2026-04-27T11:09:42.746619" hostname="UrbanHub">
 
     <!-- MS-ANALYSE -->
     <testsuite name="ms-analyse" errors="2" failures="0" skipped="0" tests="2" time="4.304" timestamp="2026-04-26T23:36:22.746619">
@@ -108,6 +108,30 @@
         <properties>
             <property name="status" value="FAILED"/>
             <property name="error_type" value="DEPENDENCY_INCOMPATIBILITY"/>
+        </properties>
+    </testsuite>
+
+    <!-- MS6-VALIDATEUR-CAPTEUR -->
+    <testsuite name="ms6-validateur-capteur" errors="0" failures="0" skipped="0" tests="16" time="1.453" timestamp="2026-04-27T11:16:46.135042" hostname="Longlez">
+        <testcase classname="tests.test_main" name="test_health_endpoint" time="0.040" />
+        <testcase classname="tests.test_main" name="test_validate_endpoint_normal" time="0.013" />
+        <testcase classname="tests.test_main" name="test_validate_endpoint_moderate" time="0.009" />
+        <testcase classname="tests.test_main" name="test_validate_endpoint_critical" time="0.007" />
+        <testcase classname="tests.test_main" name="test_validate_endpoint_unknown_sensor" time="0.010" />
+        <testcase classname="tests.test_main" name="test_validate_endpoint_invalid_sensor" time="0.008" />
+        <testcase classname="tests.test_main" name="test_validate_endpoint_invalid_value" time="0.007" />
+        <testcase classname="tests.test_validator" name="test_validate_normal_co2" time="0.001" />
+        <testcase classname="tests.test_validator" name="test_validate_moderate_temperature" time="0.001" />
+        <testcase classname="tests.test_validator" name="test_validate_critical_noise" time="0.002" />
+        <testcase classname="tests.test_validator" name="test_validate_unknown_sensor" time="0.002" />
+        <testcase classname="tests.test_validator" name="test_capteur_ajouté" time="0.002" />
+        <testcase classname="tests.test_validator" name="test_validate_payload_sensor_invalid" time="0.001" />
+        <testcase classname="tests.test_validator" name="test_validate_payload_value_invalid" time="0.001" />
+        <testcase classname="tests.test_validator" name="test_add_sensor_invalid_thresholds" time="0.001" />
+        <testcase classname="tests.test_validator" name="test_add_sensor_already_exists" time="0.001" />
+        <properties>
+            <property name="coverage" value="100%"/>
+            <property name="status" value="SUCCESS"/>
         </properties>
     </testsuite>
 

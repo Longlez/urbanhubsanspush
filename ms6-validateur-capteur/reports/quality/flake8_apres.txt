@@ -1,0 +1,3 @@
+# Résultats Flake8 après correction
+
+Aucune erreur Flake8 détectée dans les sources et les tests de `ms6-validateur-capteur`.
