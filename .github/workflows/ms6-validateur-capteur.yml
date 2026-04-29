@@ -1,0 +1,159 @@
+name: MS6 Validateur Capteur CI
+
+on:
+  push:
+    branches: [ main, develop ]
+    paths:
+      - "ms6-validateur-capteur/**"
+      - ".github/workflows/ms6-validateur-capteur.yml"
+  pull_request:
+    branches: [ main ]
+    paths:
+      - "ms6-validateur-capteur/**"
+      - ".github/workflows/ms6-validateur-capteur.yml"
+
+env:
+  PYTHON_VERSION: "3.12"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ms6-validateur-capteur
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install -r requirements-dev.txt
+
+      - name: Run tests
+        run: |
+          pytest
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ms6-validateur-coverage
+          path: ms6-validateur-capteur/03_rapport_tests/coverage.xml
+
+  quality:
+    needs: test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ms6-validateur-capteur
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install dev dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+          pip install flake8
+
+      - name: Run Flake8
+        run: |
+          flake8 src tests --config=.flake8
+
+  security:
+    needs: quality
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ms6-validateur-capteur
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+          cache-dependency-path: requirements.txt
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Snyk Security Scan
+        uses: snyk/actions/python@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --file=requirements.txt --severity-threshold=high --fail-on=all
+
+  build:
+    needs: security
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Build Docker image
+        run: |
+          docker build -t ms6-validateur-capteur:ci ms6-validateur-capteur
+
+  verify-image:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Docker image
+        run: |
+          docker run -d --name ms6-validateur-ci -p 8000:8000 ms6-validateur-capteur:ci
+          sleep 5
+          curl --fail http://localhost:8000/health
+      - name: Stop container
+        run: |
+          docker stop ms6-validateur-ci
+          docker rm ms6-validateur-ci
+
+  deploy-staging:
+    needs: verify-image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Start staging service
+        run: |
+          docker compose up -d ms6-validateur-capteur
+          sleep 10
+          curl --fail http://localhost:8006/health

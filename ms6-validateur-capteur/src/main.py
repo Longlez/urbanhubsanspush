@@ -1,21 +1,11 @@
 from fastapi import FastAPI
-from pydantic import BaseModel, Field
 
-from .validator import SensorValidator
+from src.adapters.api.routes import router
 
-app = FastAPI(title="MS6 Validateur Capteur", version="1.0.0")
+app = FastAPI(
+    title="MS6 Validateur Capteur",
+    version="1.0.0",
+    description="Microservice de validation des données capteurs et de fenêtres de trafic.",
+)
 
-
-class SensorPayload(BaseModel):
-    sensor: str = Field(..., json_schema_extra={"example": "co2"})
-    value: float = Field(..., json_schema_extra={"example": 650.0})
-
-
-@app.post("/validate")
-def validate_sensor(payload: SensorPayload) -> dict:
-    return SensorValidator.validate_payload(payload.model_dump())
-
-
-@app.get("/health")
-def health_check() -> dict:
-    return {"status": "healthy", "service": "ms6-validateur-capteur"}
+app.include_router(router)

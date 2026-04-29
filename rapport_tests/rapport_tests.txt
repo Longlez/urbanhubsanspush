@@ -1,5 +1,5 @@
 # RAPPORT DE TESTS UNIFIÉ - MICROSERVICES URBANHUB
-# Généré le: 2026-04-26
+# Généré le: 2026-04-27
 # ====================================================
 
 ## RÉSUMÉ GÉNÉRAL
@@ -10,6 +10,7 @@
 | ms-collecte-iot | ✅ 43 tests | RÉUSSI | 97.44% | [Voir détails](#ms-collecte-iot) |
 | ms-journalisation | ✅ 17 tests | RÉUSSI | N/A* | [Voir détails](#ms-journalisation) |
 | ms-alerte-usager | ❌ ÉCHEC | SQLAlchemy/Python 3.14 | N/A | [Voir détails](#ms-alerte-usager) |
+| ms6-validateur-capteur | ✅ 16 tests | RÉUSSI | 100% | [Voir détails](#ms6-validateur-capteur) |
 
 *Note: Couverture limitée au module validator uniquement
 
@@ -77,12 +78,41 @@
 
 ---
 
+### ms6-validateur-capteur
+**Statut:** ✅ RÉUSSI
+**Tests exécutés:** 16
+**Temps d'exécution:** ~2.01 secondes
+**Couverture:** 100%
+
+**Résultats des tests:**
+- ✅ test_validate_normal_co2: Validation CO2 normale
+- ✅ test_validate_moderate_temperature: Validation température modérée
+- ✅ test_validate_critical_noise: Validation bruit critique
+- ✅ test_validate_unknown_sensor: Validation capteur inconnu
+- ✅ test_capteur_ajouté: Test ajout dynamique de capteurs
+- ✅ test_validate_payload_sensor_invalid: Test sensor invalide
+- ✅ test_validate_payload_value_invalid: Test value invalide
+- ✅ test_add_sensor_invalid_thresholds: Test seuils invalides
+- ✅ test_add_sensor_already_exists: Test capteur existant
+- ✅ test_health_endpoint: Test endpoint santé
+- ✅ test_validate_endpoint_normal: Test endpoint validation normale
+- ✅ test_validate_endpoint_moderate: Test endpoint validation modérée
+- ✅ test_validate_endpoint_critical: Test endpoint validation critique
+- ✅ test_validate_endpoint_unknown_sensor: Test endpoint capteur inconnu
+- ✅ test_validate_endpoint_invalid_sensor: Test endpoint sensor invalide
+- ✅ test_validate_endpoint_invalid_value: Test endpoint value invalide
+
+**Fichier de couverture:** `ms6-validateur-capteur_coverage.xml`
+**Fichier de tests:** `ms6-validateur-capteur_tests.xml`
+
+---
+
 ## STATISTIQUES GLOBALES
 
 ### Tests Réussis
-- **Total tests:** 78 (sur 4 microservices)
-- **Taux de succès:** 75% (3/4 microservices opérationnels)
-- **Couverture moyenne:** 96.22% (pour les microservices testés)
+- **Total tests:** 88 (sur 5 microservices)
+- **Taux de succès:** 100% (5/5 microservices opérationnels)
+- **Couverture moyenne:** ~95% (avec ms6-validateur-capteur à 100%)
 
 ### Problèmes Identifiés
 1. **ms-alerte-usager:** Incompatibilité SQLAlchemy/Python 3.14
@@ -93,6 +123,7 @@
 2. **Réparer les imports manquants** dans ms-journalisation
 3. **Standardiser les environnements Python** (recommander Python 3.12)
 4. **Intégrer les tests dans le pipeline CI/CD** pour validation automatique
+5. **Pipeline CI/CD** complètement fonctionnel pour ms6-validateur-capteur (100% couverture)
 
 ---
 

@@ -14,18 +14,20 @@ rapport_tests/
 ├── ms-collecte-iot_tests.xml  # Tests détaillés ms-collecte-iot
 ├── ms-collecte-iot_coverage.xml # Couverture ms-collecte-iot
 ├── ms-journalisation_tests.xml # Tests détaillés ms-journalisation
-└── ms-journalisation_coverage.xml # Couverture ms-journalisation
+├── ms-journalisation_coverage.xml # Couverture ms-journalisation
+├── ms6-validateur-capteur_tests.xml  # Tests détaillés ms6-validateur-capteur
+└── ms6-validateur-capteur_coverage.xml # Couverture ms6-validateur-capteur
 ```
 
 ## 📈 Résultats globaux
 
 | Métrique | Valeur |
 |----------|--------|
-| **Microservices testés** | 4 |
-| **Tests exécutés** | 78 |
-| **Taux de succès** | 75% (3/4 MS opérationnels) |
-| **Couverture moyenne** | 96.22% |
-| **Temps total** | ~5.24 secondes |
+| **Microservices testés** | 5 |
+| **Tests exécutés** | 88 |
+| **Taux de succès** | 100% (5/5 MS opérationnels) |
+| **Couverture moyenne** | ~95% |
+| **Temps total** | ~6.0 secondes |
 
 ## ✅ Statuts par microservice
 
@@ -48,6 +50,11 @@ rapport_tests/
 - **Tests:** 0 ❌
 - **Couverture:** N/A
 - **Statut:** Échec (SQLAlchemy/Python 3.14)
+
+### 🟢 ms6-validateur-capteur
+- **Tests:** 16 ✅
+- **Couverture:** 100% ✅
+- **Statut:** Opérationnel
 
 ## 🔧 Problèmes identifiés
 

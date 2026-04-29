@@ -135,10 +135,10 @@ services:
     command: ["python", "src/main.py"]
     restart: unless-stopped
 
-  ms6-validateur:
+  ms6-validateur-capteur:
     build:
       context: ./ms6-validateur-capteur
-    container_name: ms6-validateur
+    container_name: ms6-validateur-capteur
     ports:
       - "8006:8000"
     depends_on:
